@@ -1,0 +1,61 @@
+rce
+       body {
+        width: 960px;
+        margin: 20px auto;
+      }
+
+      ul{
+        list-style-type: none;
+      }
+
+      section {
+        display: inline-block;
+        width: 750px;
+        padding: 0 0 0 8px;
+        border-left: 3px solid rgb(55, 20, 136);
+        margin-bottom: 8px;
+      }
+
+      aside {
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
+        padding: 0 8px 0 0;
+      }
+      table {
+        width: 750px;  
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      th {
+        padding: 18px;
+      }
+
+      td {
+        padding: 12px;
+        font-style: italic;
+      }
+
+      th,
+      td {
+        border: solid 1px #583f91;
+      }
+
+      tr {
+        background-color: rgb(240, 246, 250);
+      }
+
+      tr.odd {
+        background-color: rgb(234, 232, 240);
+      }
+
+      #heading {
+        background-color: rgb(34, 21, 70);
+        color: white;
+      }
+
+
+ 
