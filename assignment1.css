@@ -12,7 +12,7 @@ A.class2:active {text-decoration: none; color: red;}
 
 
 #second-div>p:nth-child(odd){
-    color:blue;
+    color:blue;  
 }
 
 #second-div>p:nth-child(even){
