@@ -4,7 +4,7 @@ A.class1:visited {text-decoration: none; color: green;}
 A.class1:hover {text-decoration: underline; color: green;}
 A.class1:active {text-decoration: none; color: green;}
 
-A.class2 {color:blue;}
+A.class2 {color:red;}
 A.class2:link {text-decoration: none; color: red;}
 A.class2:visited {text-decoration: none; color: red;}
 A.class2:hover {text-decoration: underline; color: red;}
@@ -12,14 +12,14 @@ A.class2:active {text-decoration: none; color: red;}
 
 
 #second-div>p:nth-child(odd){
-    color:blue;
+    color:blue;  
 }
 
 #second-div>p:nth-child(even){
     color:red;
 }
 
-#first-div>p::after{content: " -NEW"; 
+#first-div>p::after{content: " -NEW";
     color: rgb(185, 185, 9);
 }
 
