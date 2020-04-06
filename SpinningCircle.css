@@ -39,3 +39,36 @@ body{
         transform: translate3d(-50%, -50%, 0);
         will-change: transform;
 }
+.spinner::after{
+    content: "";
+    display: inline-block;
+	background: #050210;
+	border-radius: 50%;
+	box-shadow: 0 0 0 0 #050210(0, 0, 0, 1.5);
+	margin: 50px;
+	height: 350px;
+	width: 350px;
+	transform: scale(0.9);
+    animation: pulse-black 4s infinite;
+    position: absolute;
+    bottom: 19%;
+    right: 34%;
+}
+
+@keyframes pulse-black {
+	0% {
+		transform: scale(0.35);
+		box-shadow: 0 0 0 0 #050210(0, 0, 0, 0.8);
+	}
+	
+	70% {
+		transform: scale(0.9);
+        box-shadow: 0 0 0 50px #050210(0, 0, 0, 0);
+        filter: brightness(2.0);
+	}
+	
+	100% {
+		transform: scale(0.35);
+		box-shadow: 0 0 0 0 #050210(0, 0, 0, 0);
+	}
+}
