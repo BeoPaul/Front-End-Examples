@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic Arithmetic Operations</title>
+</head>
+<body>
+ 
+<script>
+
+var sign='';
+var num1 = parseInt(prompt("Please enter the value of the first number!"));
+var num2 = parseInt(prompt("Please enter the value of the second number!"));
+
+
+alert("You have entered following numbers: " + num1 + " and " + num2 +".");
+var sign = prompt("Please enter one of the following operands +, -, * or /. ");
+
+try{
+function operateNums(num1, num2){
+    if (sign == '+') return num1 + num2;
+    else if (sign == '-') return num1 - num2;
+    else if (sign == '*') return num1 * num2;
+    else if (sign == '/') return num1 /num2;
+    else alert("Only +, -, / and * operations are allowed in this case.")
+}
+    if (num2 == 0 && sign == '/') throw Error("Division by zero is not allowed, b/c it gives you + or - infinity.");
+alert(" Your final result is " + operateNums(num1, num2));
+}
+catch (err){
+    alert ("Error name: " + err.name);
+    alert ("Error message: " + err.message);
+}
+
+</script>
+ 
+</body>
+</html>
