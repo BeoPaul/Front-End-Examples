@@ -1,0 +1,139 @@
+            <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+            <title>Language Quiz</title>
+        </head>
+        <body>
+        
+            <script>
+            
+            (async () => {
+ 
+                try {
+                    let response = await fetch('http://localhost:8080/quiz.json', {
+                        mode: "no-cors"
+                    });
+                    if (!response.ok) {
+                        throw new Error("Error while reading file.");
+                    }
+                    let json = await response.json();
+                    
+                    let stringified = JSON.stringify(json);
+                    let parsedObj = JSON.parse(stringified);
+
+                    console.log(parsedObj);
+                    let Questions=parsedObj.quiz;
+                    
+                    console.log(Questions);
+                    let qNum = 0;  //quiz qestion index number
+                    let score = 0; //number of correct answers
+                    
+
+                    for(let key in Questions){
+                        
+                        console.log(Questions[key].options);
+                        let choices = Questions[key].options;
+                        qNum++;
+                        console.log(qNum);
+                        
+                        
+                        document.body.innerHTML+='<h2>' +  'Question ' + qNum + ': '+ Questions[key].question + '</h2>';
+                        
+                        for (let i = 0; i < choices.length; i++) {
+                            let option = choices[i];
+                            let section = key;
+                             
+                            console.log(section);
+                            console.log(option);
+                            document.body.innerHTML += '<p><label><input type = "radio" name="'+section+'">'+ option+'</label></p>';
+                        }
+                        
+                    }
+                    document.body.innerHTML+='<div><button id ="submit">'+"Submit Answers"+'</button></div>';
+                    document.body.innerHTML += '<p><button id ="remove">'+ "Remove Answers" + '</button></p>';
+                    document.body.innerHTML += '<p><button id ="clear">'+ "Clear All" + '</button></p>';
+
+                    let removeButton = document.getElementById("remove");
+                    let clearButton = document.getElementById("clear");
+
+                    let btn = document.getElementById("submit");
+                    let available = Array.from(document.getElementsByTagName('input'));
+                    console.log(available);
+
+                    let currentAnswers =[];
+                    let correctAnswers =[];
+                                 
+                    
+                    btn.onclick = function () {
+                        currentAnswers.length=0;
+                        for(let radios of available) {
+                            if (radios.checked) {
+                                console.log(radios.nextSibling.textContent);
+                                currentAnswers.push(radios.nextSibling.textContent);
+                            }
+                        }
+                        console.log(currentAnswers);
+                        localStorage.setItem("Last_Test", JSON.stringify(currentAnswers));
+                        scoreBoard();
+                    }
+                        
+
+                    for (let key in Questions){
+                         correctAnswers.push(Questions[key].answer);  
+                    }
+
+                    function scoreBoard(){
+                        score=0;
+                        for (let k=0; k < correctAnswers.length; k++){
+                            if (currentAnswers[k] === correctAnswers[k]){
+                                score++;
+                            }
+                        }
+                        console.log(score);
+                        localStorage.setItem("Last_Score",score.toString());
+                    }
+
+                    removeButton.onclick = function () {
+                        localStorage.removeItem('Last_Test');
+                        localStorage.removeItem('Last_Score');
+                    }
+ 
+                    clearButton.onclick = function () {
+                        localStorage.clear();
+                    }
+ 
+                    window.onstorage = function (event) {
+                        if (event.key === null) {
+                            console.log("Whole storage is cleared!");
+                            document.body.innerHTML+="You haven't submitted answers yet!"
+                            return;
+                        }
+
+                        if (event.oldValue === null) {
+                            console.log("New value added to storage: " + event.key + " " + event.newValue);
+                            document.body.innerHTML+="<p>Your latest  test score is " + event.key + " " + event.newValue +"</p>";
+                            return;
+                        }
+
+                        if (event.newValue === null) {
+                            console.log("Value removed from stroage: " + event.key + " " + event.oldValue);
+                            document.body.innerHTML+="<p>Your removed previous results " + event.key + " " + event.oldValue +"</p>";
+                            return;
+                        }
+
+                        console.log("Value with key: " + event.key + " updated. Old value: "+ event.oldValue + " New value: " + event.newValue);
+                        document.body.innerHTML+="<p>Your result with key: " + event.key +  " updated. Old result: " + event.oldValue 
+                            + " New result is " + event.newValue + "</p>";
+                    }
+
+                } catch (err) {
+                    console.log('Fetch problem: ' + err.message);
+                }            
+ 
+            })();
+
+            </script>
+        </body>
+     </html>   

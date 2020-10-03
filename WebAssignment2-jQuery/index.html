@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2 - Website Building</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/ca42b936bd.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        #login-container {
+            width: 460px;
+            margin: 0 auto;
+        }
+
+        form label,
+        form input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        form input {
+            padding: 8px;
+        }
+
+        form label {
+            font-weight: bold;
+        }
+
+        form div {
+            margin: 16px 0px;
+        }
+
+        /* my additions  */
+
+        div {
+            position: relative;
+        }
+
+        div i {
+            position: absolute;
+            right: 0;
+            top: 19px;
+            padding: 9px 8px;
+        }
+
+        /* icon colors*/
+        #success {
+            color: green;
+            display: none;
+        }
+
+        #succ{
+            color: green;
+            display:none;
+        }
+
+        #warning {
+            color: lightsalmon;
+            display: none;
+        }
+
+        #warn{
+            color: lightsalmon;
+            display: none;
+        }
+
+        #error {
+            color: red;
+            display: none;
+        }
+        #err{
+            color: red;
+            display: none;
+        }
+
+        span {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="login-container">
+        <form action="javascript:alert('success'!)">
+            <div>
+                <label for="username">Username:</label>
+                <input id="username" type="text">
+                <i id="success" class="fas fa-check"></i>
+                <i id="error" class="fas fa-times"></i>
+                <i id="warning" class="fas fa-exclamation"></i>
+            </div>
+
+            <div>
+                <label for="password">Password:</label>
+                <input id="password" type="password">
+                <i id="succ" class="fas fa-check"></i>
+                <i id="err" class="fas fa-times"></i>
+                <i id="warn" class="fas fa-exclamation"></i>
+            </div>
+
+            <input type="submit" value="Login">
+        </form>
+        <span id="span1">*please, enter username</span>
+        <span id="span2">*please, enter valid username</span>
+        <span id="span3">*please, enter password</span>
+        <span id="span4">*please, enter valid password</span>
+    </div>
+
+    <script>
+        $("form").submit(function (event) {
+            if ($("#username").val() === "new_user") {
+                $("span").hide();
+                $("#username").css("border", "green 2px solid");
+                $("#success").css("display", "block");
+                $("#error").css("display", "none");
+                $("#warning").css("display", "none");
+                return;
+            }
+
+            $("#span1").hide();
+            $("#span2").show();
+            $("#username").css("border", "lightsalmon 2px solid");
+            $("#success").css("display", "none");
+            $("#error").css("display", "none");
+            $("#warning").css("display", "block");
+            event.preventDefault();
+
+            if ($("#username").val() === "") {
+                $("#span1").show();
+                $("#span2").hide();
+                $("#username").css("border", "red 2px solid");
+                $("#success").css("display", "none");
+                $("#error").css("display", "block");
+                $("#warning").css("display", "none");
+                event.preventDefault();
+            }
+        });
+
+                  // password validation
+
+        $("form").keyup(function(e){
+            if ($("#password").val() === "123456789") {
+                $("span").hide();
+                $("#password").css("border", "green 2px solid");
+                $("#succ").css("display", "block");
+                $("#err").css("display", "none");
+                $("#warn").css("display", "none");
+                return;
+            }
+               
+            $("#span3").hide();
+            $("#span4").show();
+            $("#password").css("border", "lightsalmon 2px solid");
+            $("#succ").css("display", "none");
+            $("#err").css("display", "none");
+            $("#warn").css("display", "block");
+            e.preventDefault();
+
+            if ($("#password").val() === "") {
+                $("#span3").show();
+                $("#span4").hide();
+                $("#password").css("border", "red 2px solid");
+                $("#succ").css("display", "none");
+                $("#err").css("display", "block");
+                $("#warn").css("display", "none");
+                e.preventDefault();
+            }
+        });
+       
+    </script>
+</body>
+
+</html>

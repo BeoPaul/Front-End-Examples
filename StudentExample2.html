@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Promise finally example</title>
+        <style>
+            #loader {
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                display: none;
+            }
+            #loader:after {
+                content: " ";
+                display: block;
+                width: 18px;
+                height: 18px;
+                margin: 2px;
+                border-radius: 50%;
+                border: 2px solid #241f1f;
+                border-color: #241f1f transparent #241f1f transparent;
+                animation: lds-dual-ring 1.2s linear infinite;
+            }
+            @keyframes lds-dual-ring {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            #my-text-area {
+                display: block;
+                width: 100%;
+                margin-top: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="get-text-btn">Get Data</button>
+        <div id="loader"></div>
+        <textarea id="my-text-area" rows="30"></textarea>
+        <script>
+            
+        let button = document.getElementById("get-text-btn");
+        let textArea = document.getElementById("my-text-area");
+        let loader = document.getElementById("loader");
+        let once = true;
+    
+        button.addEventListener("click", function () {
+            if (once){
+                getData();
+                once = false;
+            }
+        });
+        async function getData() {
+            try {
+                loader.style.display = "inline-block";
+                let response = await fetch('https://v-dresevic.github.io/Advanced-JavaScript-Programming/data/students.txt');
+                if (response.status !== 200) {
+                    throw new Error("Error while reading file.");
+                }
+                let text = await response.text();
+
+                let infoArray = text.split("\n");
+                
+
+                let studentsArray = [];
+                let helperArray = [];
+
+                for (let i = 0; i < infoArray.length; i++) {
+                    const studentInfo = infoArray[i];
+                    
+                    if(i > 0 && i % 4 == 0) {
+                        studentsArray.push(helperArray);
+                        helperArray = [];
+                        helperArray.push(studentInfo);
+                    } else {
+                        helperArray.push(studentInfo);
+                    }
+                }
+
+                for (let i = 0; i < studentsArray.length; i++) {
+                    let newStudent = new Student(studentsArray[i][0], studentsArray[i][1], studentsArray[i][2], studentsArray[i][3])
+
+                    textArea.innerHTML += newStudent.getInfo();
+                }
+                
+            } catch (err) {
+                textArea.innerHTML = 'Fetch problem: ' + err.message;
+            } finally {
+                loader.style.display = "none";
+            }
+        }
+
+        class Student {
+
+            constructor(name, address, phone, course) {
+                this.name = name;
+                this.address = address;
+                this.phone = phone;
+                this.course = course;
+            }
+
+            getInfo() {
+                return ` Name: ${this.name} Address: ${this.address} Phone: ${this.phone} Course: ${this.course} \n`
+            }
+
+        }
+        </script>
+    </body>
+</html>
