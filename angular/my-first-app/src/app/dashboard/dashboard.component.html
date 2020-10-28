@@ -1,0 +1,11 @@
+<h3>Frequent Calls</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let person of persons" class="col-1-4"
+      routerLink="/detail/{{person.id}}">
+    <div class="module person">
+      <h4>{{person.name}}</h4>
+    </div>
+  </a>
+</div>
+
+<app-person-search></app-person-search>
